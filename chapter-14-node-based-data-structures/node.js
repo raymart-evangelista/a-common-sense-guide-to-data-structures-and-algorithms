@@ -82,7 +82,7 @@ class LinkedList {
     // case when first_node
     if (index == 0) {
       this.first_node = this.first_node.next_node
-      return this.first_node.data
+      return
     }
     // case when last node or middle
     let previous_node = this.first_node
@@ -90,13 +90,10 @@ class LinkedList {
       previous_node = previous_node.next_node
     }
 
-    let node_to_delete = previous_node.next_node
-    // case when last node in list
-    if (node_to_delete.next_node == null) {
-      previous_node.next_node = null
-    }
-    // case when not last node -- previous node points to node_to_delete's next node
-    previous_node.next_node = node_to_delete.next_node
+    let node_after_node_to_delete = previous_node.next_node.next_node
+    // point previous_node.next_node to node_after_node_to_delete
+    previous_node.next_node = node_after_node_to_delete
+    return
   }
 }
 
