@@ -77,6 +77,27 @@ class LinkedList {
     previous_node.next_node = new_node
     
   }
+
+  delete_at_index(index) {
+    // case when first_node
+    if (index == 0) {
+      this.first_node = this.first_node.next_node
+      return this.first_node.data
+    }
+    // case when last node or middle
+    let previous_node = this.first_node
+    for (let current_index = 0; current_index < index - 1; current_index) {
+      previous_node = previous_node.next_node
+    }
+
+    let node_to_delete = previous_node.next_node
+    // case when last node in list
+    if (node_to_delete.next_node == null) {
+      previous_node.next_node = null
+    }
+    // case when not last node -- previous node points to node_to_delete's next node
+    previous_node.next_node = node_to_delete.next_node
+  }
 }
 
 const list = new LinkedList(node1)
