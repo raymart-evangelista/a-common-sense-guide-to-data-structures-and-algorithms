@@ -95,11 +95,21 @@ class LinkedList {
     previous_node.next_node = node_after_node_to_delete
     return
   }
+
+  print_all() {
+    let current_node = this.first_node
+
+    while (current_node) {
+      console.log(current_node.data)
+      current_node = current_node.next_node
+    }
+  }
 }
 
 const list = new LinkedList(node1)
 // console.log(list.read_data(4))
 // console.log(list.search_data('tisme'))
-console.log(list.read_data(0))
-list.insert_at_index(3, 0)
-console.log(list.read_data(0))
+// console.log(list.read_data(0))
+list.print_all()
+// list.insert_at_index(3, 0)
+// console.log(list.read_data(0))
