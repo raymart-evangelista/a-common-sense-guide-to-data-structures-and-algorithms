@@ -14,12 +14,18 @@ class DoublyLinkedList {
 
   insert_at_end(value) {
     let new_node = new Node(value)
-    // last node's next_node is the new_node
-    this.last_node.next_node = new_node
-    // the new_node's previous_node will be the current last_node
-    new_node.previous_node = this.last_node
-    // the new_node becomes the last_node
-    this.last_node = new_node
+    // if there are no nodes
+    if (!this.first_node) {
+      this.first_node = new_node
+      this.last_node = new_node
+    } else {
+      // last node's next_node is the new_node
+      this.last_node.next_node = new_node
+      // the new_node's previous_node will be the current last_node
+      new_node.previous_node = this.last_node
+      // the new_node becomes the last_node
+      this.last_node = new_node
+    }
   }
 
   print_forward() {
@@ -52,5 +58,6 @@ node3.previous_node = node2
 node2.previous_node = node1
 
 let doubly = new DoublyLinkedList(node1, node4)
+
 // doubly.print_forward()
 doubly.print_backward()
