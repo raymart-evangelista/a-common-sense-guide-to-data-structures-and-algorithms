@@ -51,6 +51,27 @@ class DoublyLinkedList {
   }
 }
 
+class Queue {
+  constructor() {
+    this.data = new DoublyLinkedList()
+  }
+
+  enqueue(element) {
+    this.data.insert_at_end(element)
+  }
+
+  dequeue() {
+    let removed_node = this.data.remove_from_front()
+    return removed_node
+  }
+
+  read() {
+    if (this.data.first_node) {
+      return this.data.first_node.data
+    }
+  }
+}
+
 let node1 = new Node('once')
 let node2 = new Node('upon')
 let node3 = new Node('a')
