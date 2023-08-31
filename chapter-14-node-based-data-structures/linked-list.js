@@ -16,6 +16,9 @@ node2.next_node = node3
 // node3.next_node(node4) this doesn't work because next_node isn't a function
 node3.next_node = node4
 
+node5 = new Node("beautiful")
+node4.next_node = node5
+
 // console.log(node3.next_node)
 
 
@@ -104,12 +107,20 @@ class LinkedList {
       current_node = current_node.next_node
     }
   }
+  print_last_element() {
+    let current_node = this.first_node
+    while (current_node.next_node) {
+      current_node = current_node.next_node
+    }
+    console.log(current_node.data)
+  }
 }
 
 const list = new LinkedList(node1)
 // console.log(list.read_data(4))
 // console.log(list.search_data('tisme'))
 // console.log(list.read_data(0))
-list.print_all()
+// list.print_all()
+list.print_last_element()
 // list.insert_at_index(3, 0)
 // console.log(list.read_data(0))
