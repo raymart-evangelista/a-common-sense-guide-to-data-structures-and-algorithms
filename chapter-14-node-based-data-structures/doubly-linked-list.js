@@ -28,6 +28,13 @@ class DoublyLinkedList {
     }
   }
 
+  remove_from_front() {
+    let removed_node = this.first_node
+    this.first_node = this.first_node.next_node
+
+    return removed_node
+  }
+
   print_forward() {
     let current_node = this.first_node
     while (current_node) {
