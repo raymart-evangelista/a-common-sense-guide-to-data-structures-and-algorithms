@@ -16,8 +16,8 @@ node2.next_node = node3
 // node3.next_node(node4) this doesn't work because next_node isn't a function
 node3.next_node = node4
 
-node5 = new Node("beautiful")
-node4.next_node = node5
+// node5 = new Node("beautiful")
+// node4.next_node = node5
 
 // console.log(node3.next_node)
 
@@ -114,13 +114,35 @@ class LinkedList {
     }
     console.log(current_node.data)
   }
+
+  reverse_list() {
+    // first node will point to null
+    let previous_node = null
+    let current_node = this.first_node
+
+    // console.log(this.first_node)
+    while (current_node) {
+      // store next node before changing pointers
+      let next_node = current_node.next_node
+      // update current_node.next_node to point to previous node
+      current_node.next_node = previous_node
+      // move previous_node to be current_node
+      previous_node = current_node
+      // current_node become's next_node
+      current_node = next_node
+      // 
+      this.first_node = previous_node
+    }
+  }
 }
 
 const list = new LinkedList(node1)
 // console.log(list.read_data(4))
 // console.log(list.search_data('tisme'))
 // console.log(list.read_data(0))
-// list.print_all()
-list.print_last_element()
+list.print_all()
+// list.print_last_element()
 // list.insert_at_index(3, 0)
 // console.log(list.read_data(0))
+list.reverse_list()
+list.print_all()
