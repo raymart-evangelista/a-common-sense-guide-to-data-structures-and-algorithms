@@ -27,4 +27,29 @@ class BinarySearchTree {
       return this.search(searchValue, currentNode.leftChild)
     }
   }
+  insert(value, currentNode=this.root) {
+    // do something when the tree is empty
+    if (!this.root) {
+      this.root = new TreeNode(value)
+      return
+    }
+    // traverse left side of tree
+    if (value < currentNode.value) {
+      if (currentNode.leftChild) {
+        this.insert(value, currentNode.leftChild)
+      } else {
+        currentNode.leftChild = new TreeNode(value)
+        return
+      }
+    }
+    // traverse right side of tree
+    if (value > currentNode.value) {
+      if (currentNode.rightChild) {
+        this.insert(value, currentNode.rightChild)
+      } else {
+        currentNode.rightChild = new TreeNode(value)
+        return
+      }
+    }
+  }
 }
