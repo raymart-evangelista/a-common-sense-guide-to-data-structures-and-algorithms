@@ -103,8 +103,26 @@ class BinarySearchTree {
       return
     } else {
       this.traverse_and_print(currentNode.leftChild)
-      console.log(currentNode.data)
+      console.log(currentNode.value)
       this.traverse_and_print(currentNode.rightChild)
+    }
+  }
+  traverse_and_print_preorder(currentNode=this.root) {
+    if (!currentNode) {
+      return
+    } else {
+      console.log(currentNode.value)
+      this.traverse_and_print_preorder(currentNode.leftChild)
+      this.traverse_and_print_preorder(currentNode.rightChild)
+    }
+  }
+  traverse_and_print_postorder(currentNode=this.root) {
+    if (!currentNode) {
+      return
+    } else {
+      this.traverse_and_print_postorder(currentNode.leftChild)
+      this.traverse_and_print_postorder(currentNode.rightChild)
+      console.log(currentNode.value)
     }
   }
 }
