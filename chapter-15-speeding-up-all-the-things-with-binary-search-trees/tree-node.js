@@ -83,8 +83,8 @@ class BinarySearchTree {
       // delete currentNode thru lift function which changes
       // current node's value to value of successor
       currentNode.rightChild= this.lift(currentNode.rightChild, currentNode)
-      return currentNode
     }
+    return currentNode
 
   }
 
@@ -95,6 +95,16 @@ class BinarySearchTree {
     } else {
       nodeToDelete.value = currentNode.value
       return currentNode.rightChild
+    }
+  }
+
+  traverse_and_print_inorder(currentNode=this.root) {
+    if (!currentNode) {
+      return
+    } else {
+      this.traverse_and_print(currentNode.leftChild)
+      console.log(currentNode.data)
+      this.traverse_and_print(currentNode.rightChild)
     }
   }
 }
