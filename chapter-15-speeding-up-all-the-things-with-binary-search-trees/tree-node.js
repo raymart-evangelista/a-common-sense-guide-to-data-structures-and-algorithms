@@ -52,4 +52,49 @@ class BinarySearchTree {
       }
     }
   }
+  delete(valueToDelete, currentNode=this.root) {
+    // if node doesn't exist
+    if (!currentNode) {
+      return null
+    }
+
+    if (valueToDelete < currentNode.value) {
+      currentNode.leftChild = this.delete(valueToDelete, currentNode.leftChild)
+      return currentNode
+    }
+
+    if (valueToDelete > currentNode.value) {
+      currentNode.rightChild = this.delete(valueToDelete, currentNode.rightChild)
+      return currentNode
+    }
+
+    if (valueToDelete == currentNode.value) {
+      // main guts of the program
+
+      // case 1: valueToDelete doesn't have any subchildren / only one sub child
+      if (!currentNode.leftChild) {
+        return currentNode.rightChild
+      }
+      if (!currentNode.rightChild) {
+        return currentNode.leftChild
+      }
+
+      // case 2: valueToDelete has two subchildren so we 
+      // delete currentNode thru lift function which changes
+      // current node's value to value of successor
+      currentNode.rightChild= this.lift(currentNode.rightChild, currentNode)
+      return currentNode
+    }
+
+  }
+
+  lift(currentNode, nodeToDelete) {
+    if (currentNode.leftChild) {
+      currentNode.leftChild = this.lift(currentNode.leftChild, nodeToDelete)
+      return currentNode
+    } else {
+      nodeToDelete.value = currentNode.value
+      return currentNode.rightChild
+    }
+  }
 }
