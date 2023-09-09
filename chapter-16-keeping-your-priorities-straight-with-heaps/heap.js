@@ -35,9 +35,9 @@ class Heap {
   delete(value) {
     this.data[0] = this.data.pop
 
-    trickleNodeIndex = 0
+    let trickleNodeIndex = 0
     while (this.hasGreaterChild(trickleNodeIndex)) {
-      largerChildIndex = this.calculateLargerChildIndex(trickleNodeIndex)
+      let largerChildIndex = this.calculateLargerChildIndex(trickleNodeIndex)
 
       this.data[trickleNodeIndex], this.data[largerChildIndex] = this.data[largerChildIndex], this.data[trickleNodeIndex]
 
@@ -45,9 +45,14 @@ class Heap {
     }
   }
   hasGreaterChild(index) {
-
+    // the conditional returns true if there's a child node that is greater than the current node
+    (this.data[this.getLeftChildIndex(index)] && this.data[this.getLeftChildIndex(index)] > this.data[index]) || (this.data[this.getRightChildIndex(index)] && this.data[this.getRightChildIndex(index)] > this.data[index])
   }
   calculateLargerChildIndex(index) {
-
+    if (!this.data[this.getRightChildIndex(index)] > this.getLeftChildIndex(index)) {
+      return this.getRightChildIndex(index)
+    } else {
+      return this.getLeftChildIndex(index)
+    }
   }
 }
