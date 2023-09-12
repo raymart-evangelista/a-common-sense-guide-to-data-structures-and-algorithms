@@ -1,5 +1,30 @@
 class TrieNode {
-  constructor(this) {
+  constructor() {
     this.children = {}
+    this.isEndOfWord = false
+  }
+}
+
+class Trie {
+  constructor() {
+    this.root = new TrieNode()
+  }
+
+  /**
+   * 
+   * @param {TrieNode} [currentNode=this.root] - starting node for the search 
+   * @param {string} word - word to search for 
+   * @returns {boolean} - True if the word exists in the Trie, otherwise false
+   */
+  search(currentNode=this.root, word) {
+    for (let i=0; i<word.length; i++) {
+       let character = word[i]
+       if (character in currentNode.children) {
+        currentNode = currentNode.children[character]
+       } else {
+        return false
+       }
+    }
+    return currentNode.isEndOfWord
   }
 }
