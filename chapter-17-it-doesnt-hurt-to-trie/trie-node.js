@@ -40,4 +40,17 @@ class Trie {
     }
     currentNode.isEndOfWord = true
   }
+
+  collectAllWords(node, word="", words=[]) {
+    let currentNode = node || this.root
+
+    if (currentNode.isEndOfWord) {
+      words.push(word)
+    }
+    
+    for (let [character, childNode] of Object.entries(currentNode.children)) {
+      this.collectAllWords(childNode, word + character, words)
+    }
+    return words
+  }
 }
