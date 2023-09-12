@@ -27,4 +27,17 @@ class Trie {
     }
     return currentNode.isEndOfWord
   }
+
+  insert(currentNode=this.root, word) {
+    for (let i=0; i<word.length; i++) {
+      let character = word[i]
+      if (character in currentNode.children) {
+        currentNode = currentNode.children[character]
+      } else {
+        currentNode.children[character] = new TrieNode()
+        currentNode = currentNode.children[character]
+      }
+    }
+    currentNode.isEndOfWord = true
+  }
 }
