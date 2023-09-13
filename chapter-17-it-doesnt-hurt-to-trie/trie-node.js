@@ -8,6 +8,7 @@ class TrieNode {
 class Trie {
   constructor() {
     this.root = new TrieNode()
+    console.log(`new trie created`)
   }
 
   /**
@@ -16,7 +17,7 @@ class Trie {
    * @param {string} word - word to search for 
    * @returns {boolean} - True if the word exists in the Trie, otherwise false
    */
-  search(currentNode=this.root, word) {
+  search(word, currentNode=this.root) {
     for (let i=0; i<word.length; i++) {
        let character = word[i]
        if (character in currentNode.children) {
@@ -25,10 +26,10 @@ class Trie {
         return false
        }
     }
-    return currentNode.isEndOfWord
+    return currentNode
   }
 
-  insert(currentNode=this.root, word) {
+  insert(word, currentNode=this.root) {
     for (let i=0; i<word.length; i++) {
       let character = word[i]
       if (character in currentNode.children) {
@@ -39,6 +40,7 @@ class Trie {
       }
     }
     currentNode.isEndOfWord = true
+    console.log(`new word inserted`)
   }
 
   collectAllWords(node, word="", words=[]) {
@@ -61,4 +63,21 @@ class Trie {
     }
     return this.collectAllWords(currentNode)
   }
+
+  traverse(currentNode=this.root) {
+    if (!currentNode) {
+      return
+    } else {
+      for (let [character, childNode] of Object.entries(currentNode.children)) {
+
+      }
+    }
+  }
 }
+
+let trie = new Trie()
+trie.insert('word')
+trie.insert('another')
+trie.insert('work')
+// console.log(trie.collectAllWords())
+console.log(trie.autocomplete('wo'))
