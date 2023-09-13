@@ -47,10 +47,18 @@ class Trie {
     if (currentNode.isEndOfWord) {
       words.push(word)
     }
-    
+
     for (let [character, childNode] of Object.entries(currentNode.children)) {
       this.collectAllWords(childNode, word + character, words)
     }
     return words
+  }
+
+  autocomplete(prefix) {
+    let currentNode = this.search(prefix)
+    if (!currentNode) {
+      return null
+    }
+    return this.collectAllWords(currentNode)
   }
 }
