@@ -68,8 +68,11 @@ class Trie {
     if (!currentNode) {
       return
     } else {
-      for (let [character, childNode] of Object.entries(currentNode.children)) {
-
+      // console.log(currentNode)
+      for (let [key, childNode] of Object.entries(currentNode.children)) {
+        console.log(key)
+        this.traverse(childNode)
+        // console.log(childNode)
       }
     }
   }
@@ -80,4 +83,7 @@ trie.insert('word')
 trie.insert('another')
 trie.insert('work')
 // console.log(trie.collectAllWords())
-console.log(trie.autocomplete('wo'))
+// console.log(trie.autocomplete('wo'))
+// console.log(trie.traverse())
+
+trie.traverse()
