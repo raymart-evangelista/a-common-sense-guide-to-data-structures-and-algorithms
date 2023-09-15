@@ -76,14 +76,54 @@ class Trie {
       }
     }
   }
+
+  autocorrect(text) {
+    // if the text isn't in the trie, return an alternative word that shares the largest possible prefix
+    if (!this.search(text)) {
+      // take typo and replace with correct work catnar -> catnap
+
+      
+      // the entire word cannot be found so see if prefix exists
+      
+      for (let i=0; i<text.length; i++) {
+        if (this.search(text.slice(0, text.length - i))) {
+          // to enter here, a portion of first part of the text should exist
+          // so we can tag on the rest of the word to the current word and return
+          let prefix = text.slice(0, text.length - i)
+          let output = this.search(text.slice(0, text.length - i))
+          let suffix = Object.keys(output.children).shift()
+          // return 
+          // console.log(Object.keys(output.children).shift())
+          return prefix + suffix
+        }
+      }
+    } else {
+      return text
+    }
+    // if the text is in the trie, return word itself--true even if user's text isn't a complete word
+  }
 }
 
 let trie = new Trie()
-trie.insert('word')
-trie.insert('another')
-trie.insert('work')
+trie.insert('cat')
+trie.insert('catnap')
+trie.insert('catnip')
 // console.log(trie.collectAllWords())
 // console.log(trie.autocomplete('wo'))
 // console.log(trie.traverse())
 
-trie.traverse()
+// trie.traverse()
+// console.log(trie.search('word'))
+
+
+// should return 'catnap'
+// console.log(trie.autocorrect('catnar'))
+// trie.autocorrect('catnar')
+console.log(trie.autocorrect('catnar'))
+
+// these two console logs should return 'word'
+// console.log(trie.autocorrect('word'))
+// console.log(trie.autocorrect('wordd'))
+
+// this word should return 'another'
+// console.log(trie.autocorrect('another'))
