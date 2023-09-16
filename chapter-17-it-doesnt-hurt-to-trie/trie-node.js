@@ -90,24 +90,29 @@ class Trie {
           // to enter here, a portion of first part of the text should exist
           // so we can tag on the rest of the word to the current word and return
           let prefix = text.slice(0, text.length - i)
-          let output = this.search(text.slice(0, text.length - i))
-          let suffix = Object.keys(output.children).shift()
-          // return 
-          // console.log(Object.keys(output.children).shift())
-          return prefix + suffix
+          let currentNode = this.search(prefix)
+          
+          // if the output says the current prefix is already a word, return just prefix
+          if (currentNode) {
+            let possibleWords = this.collectAllWords(currentNode, prefix)
+            if (possibleWords.length > 0) {
+              return possibleWords[0]
+            }
+          }
         }
       }
     } else {
       return text
     }
-    // if the text is in the trie, return word itself--true even if user's text isn't a complete word
   }
 }
 
 let trie = new Trie()
-trie.insert('cat')
+// trie.insert('cat')
 trie.insert('catnap')
 trie.insert('catnip')
+trie.insert('word')
+trie.insert('another')
 // console.log(trie.collectAllWords())
 // console.log(trie.autocomplete('wo'))
 // console.log(trie.traverse())
@@ -117,13 +122,15 @@ trie.insert('catnip')
 
 
 // should return 'catnap'
-// console.log(trie.autocorrect('catnar'))
-// trie.autocorrect('catnar')
+console.log(trie.autocorrect('catnar'))
 console.log(trie.autocorrect('catnar'))
 
+// // returns cat, catnap, or catnip
+console.log(trie.autocorrect("catttttxssasfdij"))
+
 // these two console logs should return 'word'
-// console.log(trie.autocorrect('word'))
-// console.log(trie.autocorrect('wordd'))
+console.log(trie.autocorrect('word'))
+console.log(trie.autocorrect('wordddd'))
 
 // this word should return 'another'
-// console.log(trie.autocorrect('another'))
+console.log(trie.autocorrect('another'))
