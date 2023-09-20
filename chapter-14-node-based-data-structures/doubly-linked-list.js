@@ -51,7 +51,7 @@ class DoublyLinkedList {
   }
 }
 
-class Queue {
+export class Queue {
   constructor() {
     this.data = new DoublyLinkedList()
   }

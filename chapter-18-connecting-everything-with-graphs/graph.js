@@ -1,3 +1,5 @@
+import { Queue } from "../chapter-14-node-based-data-structures/doubly-linked-list"
+
 class Vertex {
   constructor(value) {
     this.value = value
@@ -7,7 +9,8 @@ class Vertex {
   addAdjacentVertex(vertex) {
     this.adjacentVertices.push(vertex)
   }
-  dfs(vertex=this, visitedVertices={}) {
+
+  dfsTraverse(vertex=this, visitedVertices={}) {
     visitedVertices[vertex.value] = true
     console.log(vertex.value)
 
@@ -15,8 +18,50 @@ class Vertex {
       if (visitedVertices[vertex.adjacentVertices[i].value]) {
         continue
       } else {
-        this.dfs(vertex.adjacentVertices[i], visitedVertices)
+        this.dfsTraverse(vertex.adjacentVertices[i], visitedVertices)
       }
+    }
+  }
+
+  dfsSearch(vertex=this, searchValue, visitedVertices={}) {
+    if (vertex.value == searchValue) {
+      console.log(`value found and in this if statement`)
+      return vertex
+    }
+    visitedVertices[vertex.value] = true
+
+    for (let i=0; i<vertex.adjacentVertices.length; i++) {
+      if (visitedVertices[vertex.adjacentVertices[i].value]) {
+        continue
+      } else {
+        if (vertex.adjacentVertices[i].value == searchValue) {
+          console.log(`value found and in this other if statement`)
+          return vertex.adjacentVertices[i] 
+        }
+        let vertexSearchingFor = this.dfsSearch(vertex.adjacentVertices[i], searchValue, visitedVertices)
+
+        if (vertexSearchingFor) {
+          console.log(`value found: ${vertexSearchingFor}`)
+          return vertexSearchingFor
+        } else {
+          console.log(`value not found`)
+          return null
+        }
+      }
+    }
+  }
+
+  bfsTraverse(startingVertex=this) {
+    let queue = new Queue()
+
+    let visitedVertices = {}
+    visitedVertices[startingVertex.value] = true
+    queue.enqueue(startingVertex)
+
+    while (queue.read) {
+      let currentVertex = queue.dequeue()
+
+      console.log(currentVertex.value)
     }
   }
 }
@@ -40,4 +85,5 @@ helen.addAdjacentVertex(candy)
 alice.addAdjacentVertex(derek)
 
 
-alice.dfs()
+// alice.dfsTraverse()
+alice.dfsSearch(alice, 'not bob')
