@@ -62,6 +62,13 @@ class Vertex {
       let currentVertex = queue.dequeue()
 
       console.log(currentVertex.value)
+
+      for (let i=0; i<currentVertex.adjacentVertices.length; i++) {
+        if (!visitedVertices[currentVertex.adjacentVertices[i].value]) {
+          visitedVertices[currentVertex.adjacentVertices[i]] = true
+          queue.enqueue(currentVertex.adjacentVertices[i])
+        }
+      }
     }
   }
 }
