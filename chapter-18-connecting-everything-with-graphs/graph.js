@@ -58,7 +58,7 @@ class Vertex {
     visitedVertices[startingVertex.value] = true
     queue.enqueue(startingVertex)
 
-    while (queue.read) {
+    while (queue.read() != null) {
       let currentVertex = queue.dequeue()
 
       console.log(currentVertex.value)
@@ -73,24 +73,35 @@ class Vertex {
   }
 }
 
-let alice = new Vertex("alice")
-let bob = new Vertex("bob")
-let cynthia = new Vertex("cynthia")
-let fred = new Vertex("fred")
-let helen = new Vertex("helen")
-let candy = new Vertex("candy")
-let derek = new Vertex("derek")
+class WeightedGraphVertex {
+  constructor() {
+    this.value = value
+    this.adjacentVertices = {}
+  }
 
-alice.addAdjacentVertex(bob)
-alice.addAdjacentVertex(cynthia)
-bob.addAdjacentVertex(cynthia)
-cynthia.addAdjacentVertex(bob)
-bob.addAdjacentVertex(fred)
-fred.addAdjacentVertex(helen)
-alice.addAdjacentVertex(candy)
-helen.addAdjacentVertex(candy)
-alice.addAdjacentVertex(derek)
+  addAdjacentVertex(vertex, weight) {
+    this.adjacentVertices[vertex] = weight
+  }
+}
+
+// let alice = new Vertex("alice")
+// let bob = new Vertex("bob")
+// let cynthia = new Vertex("cynthia")
+// let fred = new Vertex("fred")
+// let helen = new Vertex("helen")
+// let candy = new Vertex("candy")
+// let derek = new Vertex("derek")
+
+// alice.addAdjacentVertex(bob)
+// alice.addAdjacentVertex(cynthia)
+// bob.addAdjacentVertex(cynthia)
+// cynthia.addAdjacentVertex(bob)
+// bob.addAdjacentVertex(fred)
+// fred.addAdjacentVertex(helen)
+// alice.addAdjacentVertex(candy)
+// helen.addAdjacentVertex(candy)
+// alice.addAdjacentVertex(derek)
 
 
-// alice.dfsTraverse()
-alice.dfsSearch(alice, 'not bob')
+// // alice.dfsTraverse()
+// alice.dfsSearch(alice, 'not bob')
