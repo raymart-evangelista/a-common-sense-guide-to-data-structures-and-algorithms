@@ -1,4 +1,4 @@
-import { Queue } from "../chapter-14-node-based-data-structures/doubly-linked-list"
+// import { Queue } from "../chapter-14-node-based-data-structures/doubly-linked-list"
 
 class Vertex {
   constructor(value) {
@@ -74,7 +74,7 @@ class Vertex {
 }
 
 class WeightedGraphVertex {
-  constructor() {
+  constructor(value) {
     this.value = value
     this.adjacentVertices = {}
   }
@@ -105,3 +105,11 @@ class WeightedGraphVertex {
 
 // // alice.dfsTraverse()
 // alice.dfsSearch(alice, 'not bob')
+
+
+// // //
+// weighted graph vertices
+let dallas = new WeightedGraphVertex("Dallas")
+let toronto = new WeightedGraphVertex("Toronto")
+dallas.addAdjacentVertex(toronto, 138)
+toronto.addAdjacentVertex(dallas, 216)
