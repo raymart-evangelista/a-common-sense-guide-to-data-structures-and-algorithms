@@ -1,4 +1,4 @@
-// import { Queue } from "../chapter-14-node-based-data-structures/doubly-linked-list"
+import { Queue } from "./queue"
 
 class Vertex {
   constructor(value) {
@@ -58,18 +58,46 @@ class Vertex {
     visitedVertices[startingVertex.value] = true
     queue.enqueue(startingVertex)
 
+
+    while (queue.read()) {
+      let currentVertex = queue.dequeue().data
+      for (let i=0; i<currentVertex.adjacentVertices.length; i++) {
+        if (!visitedVertices[currentVertex.adjacentVertices[i].value]) {
+          console.log(`inside if statement`)
+          console.log(visitedVertices)
+          console.log(`${currentVertex.adjacentVertices[i].value}`)
+          visitedVertices[currentVertex.adjacentVertices[i].value] = true
+          queue.enqueue(currentVertex.adjacentVertices[i])
+        }
+      }
+    }
+  }
+
+  bfsSearch(searchValue, startingVertex=this) {
+    if (startingVertex.value == searchValue) {
+      console.log(`value found at startingVertex`)
+      return startingVertex.value
+    }
+
+    let queue = new Queue()
+    let visitedVertices = {}
+    visitedVertices[startingVertex.value] = true
+    queue.enqueue(startingVertex)
+
     while (queue.read() != null) {
       let currentVertex = queue.dequeue()
 
-      console.log(currentVertex.value)
-
-      for (let i=0; i<currentVertex.adjacentVertices.length; i++) {
+      for(let i=0; i<currentVertex.adjacentVertices.length; i++) {
+        if (currentVertex.adjacentVertices[i].value == searchValue) {
+          return currentVertex.adjacentVertices[i].value
+        }
         if (!visitedVertices[currentVertex.adjacentVertices[i].value]) {
           visitedVertices[currentVertex.adjacentVertices[i]] = true
           queue.enqueue(currentVertex.adjacentVertices[i])
         }
       }
     }
+
   }
 }
 
@@ -84,32 +112,33 @@ class WeightedGraphVertex {
   }
 }
 
-// let alice = new Vertex("alice")
-// let bob = new Vertex("bob")
-// let cynthia = new Vertex("cynthia")
-// let fred = new Vertex("fred")
-// let helen = new Vertex("helen")
-// let candy = new Vertex("candy")
-// let derek = new Vertex("derek")
+let alice = new Vertex("alice")
+let bob = new Vertex("bob")
+let cynthia = new Vertex("cynthia")
+let fred = new Vertex("fred")
+let helen = new Vertex("helen")
+let candy = new Vertex("candy")
+let derek = new Vertex("derek")
 
-// alice.addAdjacentVertex(bob)
-// alice.addAdjacentVertex(cynthia)
-// bob.addAdjacentVertex(cynthia)
-// cynthia.addAdjacentVertex(bob)
-// bob.addAdjacentVertex(fred)
-// fred.addAdjacentVertex(helen)
-// alice.addAdjacentVertex(candy)
-// helen.addAdjacentVertex(candy)
-// alice.addAdjacentVertex(derek)
+alice.addAdjacentVertex(bob)
+alice.addAdjacentVertex(cynthia)
+bob.addAdjacentVertex(cynthia)
+cynthia.addAdjacentVertex(bob)
+bob.addAdjacentVertex(fred)
+fred.addAdjacentVertex(helen)
+alice.addAdjacentVertex(candy)
+helen.addAdjacentVertex(candy)
+alice.addAdjacentVertex(derek)
 
 
 // // alice.dfsTraverse()
 // alice.dfsSearch(alice, 'not bob')
+alice.bfsTraverse()
 
 
 // // //
 // weighted graph vertices
-let dallas = new WeightedGraphVertex("Dallas")
-let toronto = new WeightedGraphVertex("Toronto")
-dallas.addAdjacentVertex(toronto, 138)
-toronto.addAdjacentVertex(dallas, 216)
+// let dallas = new WeightedGraphVertex("Dallas")
+// let toronto = new WeightedGraphVertex("Toronto")
+// dallas.addAdjacentVertex(toronto, 138)
+// toronto.addAdjacentVertex(dallas, 216)

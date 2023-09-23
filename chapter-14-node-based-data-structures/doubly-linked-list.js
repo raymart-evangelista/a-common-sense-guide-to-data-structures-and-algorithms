@@ -51,7 +51,7 @@ class DoublyLinkedList {
   }
 }
 
-export class Queue {
+class Queue {
   constructor() {
     this.data = new DoublyLinkedList()
   }
@@ -89,3 +89,5 @@ let doubly = new DoublyLinkedList(node1, node4)
 
 // doubly.print_forward()
 doubly.print_backward()
+
+export { Queue }
