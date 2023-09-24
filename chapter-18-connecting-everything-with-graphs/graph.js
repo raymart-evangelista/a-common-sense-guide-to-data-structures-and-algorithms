@@ -61,11 +61,12 @@ class Vertex {
 
     while (queue.read()) {
       let currentVertex = queue.dequeue().data
+      console.log(currentVertex.value)
       for (let i=0; i<currentVertex.adjacentVertices.length; i++) {
         if (!visitedVertices[currentVertex.adjacentVertices[i].value]) {
-          console.log(`inside if statement`)
-          console.log(visitedVertices)
-          console.log(`${currentVertex.adjacentVertices[i].value}`)
+          // console.log(`inside if statement`)
+          // console.log(visitedVertices)
+          // console.log(`${currentVertex.adjacentVertices[i].value}`)
           visitedVertices[currentVertex.adjacentVertices[i].value] = true
           queue.enqueue(currentVertex.adjacentVertices[i])
         }
