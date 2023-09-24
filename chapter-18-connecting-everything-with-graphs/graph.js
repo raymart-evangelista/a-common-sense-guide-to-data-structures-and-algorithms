@@ -75,6 +75,7 @@ class Vertex {
   }
 
   bfsSearch(searchValue, startingVertex=this) {
+    // early exit
     if (startingVertex.value == searchValue) {
       console.log(`value found at startingVertex`)
       return startingVertex.value
@@ -85,20 +86,23 @@ class Vertex {
     visitedVertices[startingVertex.value] = true
     queue.enqueue(startingVertex)
 
-    while (queue.read() != null) {
-      let currentVertex = queue.dequeue()
-
-      for(let i=0; i<currentVertex.adjacentVertices.length; i++) {
-        if (currentVertex.adjacentVertices[i].value == searchValue) {
-          return currentVertex.adjacentVertices[i].value
-        }
+    while (queue.read()) {
+      let currentVertex = queue.dequeue().data
+      // return currentVertex's value if it's the searchValue
+      if (currentVertex.value == searchValue) {
+        console.log(`value found`)
+        return currentVertex.value
+      }
+      for (let i=0; i<currentVertex.adjacentVertices.length; i++) {
         if (!visitedVertices[currentVertex.adjacentVertices[i].value]) {
-          visitedVertices[currentVertex.adjacentVertices[i]] = true
+          visitedVertices[currentVertex.adjacentVertices[i].value] = true
           queue.enqueue(currentVertex.adjacentVertices[i])
         }
       }
     }
-
+    // ending the while loop and not returning means that the value wasn't found
+    console.log('value not found')
+    return null
   }
 }
 
@@ -134,7 +138,8 @@ alice.addAdjacentVertex(derek)
 
 // // alice.dfsTraverse()
 // alice.dfsSearch(alice, 'not bob')
-alice.bfsTraverse()
+// alice.bfsTraverse()
+alice.bfsSearch('bob')
 
 
 // // //
