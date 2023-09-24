@@ -7,7 +7,7 @@ class City {
   }
 
   addRoute(city, price) {
-    this.routes[city] = price
+    this.routes[city.name] = price
   }
 }
 
@@ -49,7 +49,7 @@ export function dijkstraShortestPath(startingCity, finalDestination) {
         unvisitedCities.push(adjacentCity)
       }
       // calculate price of getting from starting city to adjacent city using current city as second-to-last stop
-      let priceThroughCurrentCity = cheapestPricesTable[currentCity.name] + price
+      let priceThroughCurrentCity = cheapestPricesTable[currentCity.name] + currentCity.price
 
       // if the price from starting city to adjacent city is the cheapest one we found so far...
       if (!cheapestPricesTable[adjacentCity.name] || priceThroughCurrentCity < cheapestPricesTable[adjacentCity.name]) {
@@ -77,3 +77,5 @@ export function dijkstraShortestPath(startingCity, finalDestination) {
 
   return shortestPath.reverse()
 }
+
+console.log(dijkstraShortestPath(atlanta, elPaso))
