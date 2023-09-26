@@ -7,7 +7,11 @@ class Vertex {
   }
 
   addAdjacentVertex(vertex) {
+    if (this.adjacentVertices.includes(vertex)) {
+      return
+    }
     this.adjacentVertices.push(vertex)
+    vertex.addAdjacentVertex(this)
   }
 
   dfsTraverse(vertex=this, visitedVertices={}) {
@@ -117,34 +121,51 @@ class WeightedGraphVertex {
   }
 }
 
-let alice = new Vertex("alice")
-let bob = new Vertex("bob")
-let cynthia = new Vertex("cynthia")
-let fred = new Vertex("fred")
-let helen = new Vertex("helen")
-let candy = new Vertex("candy")
-let derek = new Vertex("derek")
+// let alice = new Vertex("alice")
+// let bob = new Vertex("bob")
+// let cynthia = new Vertex("cynthia")
+// let fred = new Vertex("fred")
+// let helen = new Vertex("helen")
+// let candy = new Vertex("candy")
+// let derek = new Vertex("derek")
 
-alice.addAdjacentVertex(bob)
-alice.addAdjacentVertex(cynthia)
-bob.addAdjacentVertex(cynthia)
-cynthia.addAdjacentVertex(bob)
-bob.addAdjacentVertex(fred)
-fred.addAdjacentVertex(helen)
-alice.addAdjacentVertex(candy)
-helen.addAdjacentVertex(candy)
-alice.addAdjacentVertex(derek)
-
-
-// // alice.dfsTraverse()
-// alice.dfsSearch(alice, 'not bob')
-// alice.bfsTraverse()
-alice.bfsSearch('bob')
+// alice.addAdjacentVertex(bob)
+// alice.addAdjacentVertex(cynthia)
+// bob.addAdjacentVertex(cynthia)
+// cynthia.addAdjacentVertex(bob)
+// bob.addAdjacentVertex(fred)
+// fred.addAdjacentVertex(helen)
+// alice.addAdjacentVertex(candy)
+// helen.addAdjacentVertex(candy)
+// alice.addAdjacentVertex(derek)
 
 
-// // //
-// weighted graph vertices
-// let dallas = new WeightedGraphVertex("Dallas")
-// let toronto = new WeightedGraphVertex("Toronto")
-// dallas.addAdjacentVertex(toronto, 138)
-// toronto.addAdjacentVertex(dallas, 216)
+// // // alice.dfsTraverse()
+// // alice.dfsSearch(alice, 'not bob')
+// // alice.bfsTraverse()
+// alice.bfsSearch('bob')
+
+
+// // // //
+// // weighted graph vertices
+// // let dallas = new WeightedGraphVertex("Dallas")
+// // let toronto = new WeightedGraphVertex("Toronto")
+// // dallas.addAdjacentVertex(toronto, 138)
+// // toronto.addAdjacentVertex(dallas, 216)
+
+let idris = new Vertex("Idris")
+let kamil = new Vertex("Kamil")
+let lina = new Vertex("Lina")
+let sasha = new Vertex("Sasha")
+let marco = new Vertex("Marco")
+let ken = new Vertex("Ken")
+let talia = new Vertex("Talia")
+
+idris.addAdjacentVertex(kamil)
+idris.addAdjacentVertex(talia)
+kamil.addAdjacentVertex(lina)
+lina.addAdjacentVertex(sasha)
+talia.addAdjacentVertex(ken)
+ken.addAdjacentVertex(marco)
+marco.addAdjacentVertex(sasha)
+idris.bfsTraverse()
