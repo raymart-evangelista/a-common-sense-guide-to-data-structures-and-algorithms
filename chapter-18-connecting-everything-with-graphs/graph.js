@@ -168,4 +168,47 @@ lina.addAdjacentVertex(sasha)
 talia.addAdjacentVertex(ken)
 ken.addAdjacentVertex(marco)
 marco.addAdjacentVertex(sasha)
-idris.bfsTraverse()
+// idris.bfsTraverse()
+
+// idris.bfsSearch('Lina')
+
+export function unweightedGraphShortestPath(startingPerson, endingPerson) {
+  // does the path even exist ?
+  if(!startingPerson.bfsSearch(endingPerson.value)) {
+    return
+  }
+
+  // this table will contain the shortest path for a particular person
+  // idris -> idris = 0
+  // idris -> talia = 1
+  // idris -> lina = 5 until it finds the 2
+  let shortestPathsTable = {}
+  // this table will be updated when the shortest path from starting person to adjacent city is the shortest we've found
+  let shortestPreviousPathTable = {}
+
+  let unvisitedPeers = []
+  let visitedPeers = {}
+
+  shortestPathsTable[startingPerson.value] = 0
+
+  let currentPerson = startingPerson
+
+  while (currentPerson) {
+    visitedPeers[currentPerson.value] = true
+    if (unvisitedPeers.includes(currentPerson.value)) {
+      let index = unvisitedPeers.indexOf(currentPerson.value)
+      unvisitedPeers.splice(index, 1)
+    }
+
+    for (const adjacentPeer in currentPerson.adjacentVertices) {
+      if (!visitedPeers[adjacentPeer.value] && !unvisitedPeers.includes(adjacentPeer.value)) {
+        unvisitedPeers.push(adjacentPeer.value)
+      }
+
+      // let closestPeerThroughCurrentPerson = shortestPathsTable[currentPerson.value]  + currentPerson.adjacentVertices[adjacentPeer]
+    }
+  }
+  // return array containing precise path e.g.: ["Idris", "Kamil", "Lina"]
+}
+
+unweightedGraphShortestPath(idris, lina)
