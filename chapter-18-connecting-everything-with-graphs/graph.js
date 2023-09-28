@@ -172,7 +172,17 @@ marco.addAdjacentVertex(sasha)
 
 // idris.bfsSearch('Lina')
 
-export function unweightedGraphShortestPath(startingPerson, endingPerson) {
+let personsByName = {
+  "Idris": idris,
+  "Kamil": kamil,
+  "Lina": lina,
+  "Sasha": sasha,
+  "Marco": marco,
+  "Ken": ken,
+  "Talia": talia
+}
+
+export function unweightedGraphShortestPath(startingPerson, endingPerson, persons=personsByName) {
   // does the path even exist ?
   if(!startingPerson.bfsSearch(endingPerson.value)) {
     return
@@ -184,6 +194,7 @@ export function unweightedGraphShortestPath(startingPerson, endingPerson) {
   // idris -> lina = 5 until it finds the 2
   let shortestPathsTable = {}
   // this table will be updated when the shortest path from starting person to adjacent city is the shortest we've found
+  // will contain an adjacent person as key and the current person and the name
   let shortestPreviousPathTable = {}
 
   let unvisitedPeers = []
@@ -194,6 +205,7 @@ export function unweightedGraphShortestPath(startingPerson, endingPerson) {
   let currentPerson = startingPerson
 
   while (currentPerson) {
+    // { 'idris': true }
     visitedPeers[currentPerson.value] = true
     if (unvisitedPeers.includes(currentPerson.value)) {
       let index = unvisitedPeers.indexOf(currentPerson.value)
@@ -201,14 +213,35 @@ export function unweightedGraphShortestPath(startingPerson, endingPerson) {
     }
 
     for (const adjacentPeer in currentPerson.adjacentVertices) {
+      // console.log(currentPerson)
+      // console.log(adjacentPeer.value)
       if (!visitedPeers[adjacentPeer.value] && !unvisitedPeers.includes(adjacentPeer.value)) {
         unvisitedPeers.push(adjacentPeer.value)
       }
 
-      // let closestPeerThroughCurrentPerson = shortestPathsTable[currentPerson.value]  + currentPerson.adjacentVertices[adjacentPeer]
+      // calculate the degree of connection from starting person to adjacent peer using current peer as second to last stop
+      let degreeOfConnection = shortestPathsTable[currentPerson.value] + 1
+
+      if (!shortestPathsTable[adjacentPeer.value] || degreeOfConnection < shortestPathsTable[adjacentPeer.value]) {
+        shortestPathsTable[adjacentPeer.value] = degreeOfConnection
+        shortestPreviousPathTable[adjacentPeer.value] = currentPerson.value
+      }
     }
+
+    currentPerson = persons[unvisitedPeers.pop()]
   }
+
+  let shortestDegreeOfConnection = []
+  let currentPersonName = endingPerson.value
+  while (currentPersonName != startingPerson.value) {
+    shortestDegreeOfConnection.push(currentPersonName)
+    currentPersonName = shortestPreviousPathTable[currentPersonName]
+  }
+  shortestDegreeOfConnection.push(startingPerson.value)
+
   // return array containing precise path e.g.: ["Idris", "Kamil", "Lina"]
+  return shortestDegreeOfConnection.reverse()
 }
 
-unweightedGraphShortestPath(idris, lina)
+console.log(unweightedGraphShortestPath(idris, lina))
+
