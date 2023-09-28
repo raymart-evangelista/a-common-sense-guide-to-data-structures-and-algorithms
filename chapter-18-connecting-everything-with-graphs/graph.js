@@ -212,22 +212,20 @@ export function unweightedGraphShortestPath(startingPerson, endingPerson, person
       unvisitedPeers.splice(index, 1)
     }
 
-    for (const adjacentPeer in currentPerson.adjacentVertices) {
-      // console.log(currentPerson)
-      // console.log(adjacentPeer.value)
-      if (!visitedPeers[adjacentPeer.value] && !unvisitedPeers.includes(adjacentPeer.value)) {
-        unvisitedPeers.push(adjacentPeer.value)
+    for (let i=0; i<currentPerson.adjacentVertices.length; i++) {
+      let adjacentPersonName = currentPerson.adjacentVertices[i].value
+      if (!visitedPeers[adjacentPersonName] && !unvisitedPeers.includes(adjacentPersonName)) {
+        unvisitedPeers.push(adjacentPersonName)
       }
 
-      // calculate the degree of connection from starting person to adjacent peer using current peer as second to last stop
       let degreeOfConnection = shortestPathsTable[currentPerson.value] + 1
 
-      if (!shortestPathsTable[adjacentPeer.value] || degreeOfConnection < shortestPathsTable[adjacentPeer.value]) {
-        shortestPathsTable[adjacentPeer.value] = degreeOfConnection
-        shortestPreviousPathTable[adjacentPeer.value] = currentPerson.value
+      if (!shortestPathsTable[adjacentPersonName] || degreeOfConnection < shortestPathsTable[adjacentPersonName]) {
+        shortestPathsTable[adjacentPersonName] = degreeOfConnection
+        shortestPreviousPathTable[adjacentPersonName] = currentPerson.value
       }
     }
-
+    
     currentPerson = persons[unvisitedPeers.pop()]
   }
 
